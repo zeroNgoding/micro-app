@@ -21,9 +21,7 @@ export default function VotePage(props: any) {
             INFO PEMILU TERUPDATE
           </h1>
           <div className="flex flex-col items-center gap-10 lg:flex-row lg:justify-center lg:gap-32">
-            {/* <div className="bg-red-400 w-72 h-72 lg:w-96 lg:h-96 rounded-full"></div> */}
             <ChartPieComponents />
-
             <div className="flex flex-col gap-2 mb-16">
               <div className="bg-blue-400 shadow-md rounded-xl flex justify-between gap-4 p-4 lg:px-8 items-center">
                 <div className=" bg-black text-white  flex flex-col justify-center items-center p-1 py-2 lg:px-3 lg:py-4 leading-4 text-xs lg:text-xl lg:leading-6 border rounded-lg">

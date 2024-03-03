@@ -26,7 +26,7 @@ export default function ModalLogin(props: any) {
         ...props.userSignIn,
       });
 
-      if (dataUser.listas === "admin") {
+      if (props.userSignIn.listas === "admin" || dataUser.listas === "admin") {
         navigate("/admin");
       }
       localStorage.setItem("UserSignIn", JSON.stringify(props.userSignIn));

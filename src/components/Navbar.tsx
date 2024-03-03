@@ -35,7 +35,7 @@ export default function Navbar(props: any) {
       <div className="container mx-auto">
         <div className="flex items-center justify-between relative px-4 py-2">
           <div className="flex items-center gap-4">
-            <Link to="/">
+            <Link to={userLogin?.listas === "user" ? "/" : "/admin"}>
               <img src={Logo} alt="" />
             </Link>
             <p className="font-bold text-sm lg:text-lg text-white">
@@ -58,7 +58,7 @@ export default function Navbar(props: any) {
               <li>|</li>
               <li
                 className={
-                  userLogin?.isLogin === "admin"
+                  userLogin?.listas === "admin"
                     ? "cursor-pointer hidden"
                     : "cursor-pointer"
                 }
