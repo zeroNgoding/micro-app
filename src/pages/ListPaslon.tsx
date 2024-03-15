@@ -1,8 +1,27 @@
+import { useEffect, useState } from "react";
 import Onyet from "../assets/img/onyet.png";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { API } from "../config/api";
 
 export default function ListPaslon(props: any) {
+  const [paslon, setPaslon] = useState<any>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await API.get("/paslons");
+        setPaslon(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(paslon);
+
   return (
     <>
       <Navbar
@@ -30,31 +49,33 @@ export default function ListPaslon(props: any) {
                 </tr>
               </thead>
               <tbody className="bg-white">
-                <tr>
-                  <td className="border border-black lg:p-2 text-center font-bold  ...">
-                    1
-                  </td>
-                  <td className="border border-black lg:p-2 ...">
-                    <img src={Onyet} className="w-20 mx-auto" alt="" />
-                  </td>
-                  <td className="border border-black lg:p-2 ...">
-                    Cintara surya Paloh
-                  </td>
-                  <td className="border border-black lg:p-2 ...">
-                    <ul className="list-disc ms-5">
-                      <li>Memindahkan Indonesia ke Isekai</li>
-                      <li>Nonton anime 3x sehari.</li>
-                      <li>Melakukan peresapan pada budaya jepang</li>
-                    </ul>
-                  </td>
-                  <td className="border border-black lg:p-2 p-2 ...">
-                    <ul className="list-disc ms-5">
-                      <li>Partai persatuan Wibo.</li>
-                      <li>Partai Redbull.</li>
-                      <li>Partai Black Magic.</li>
-                    </ul>
-                  </td>
-                </tr>
+                {paslon?.map((p: any, i: any) => {
+                  return (
+                    <tr>
+                      <td className="border border-black lg:p-2 text-center font-bold  ...">
+                        {p.no_urut}
+                      </td>
+                      <td className="border border-black lg:p-2 ...">
+                        <img src={Onyet} className="w-20 mx-auto" alt="" />
+                      </td>
+                      <td className="border border-black lg:p-2 ...">
+                        {p.name}
+                      </td>
+                      <td className="border border-black lg:p-2 ...">
+                        <ul className="list-disc ms-5">
+                          <li>{p.vm}</li>
+                        </ul>
+                      </td>
+                      <td className="border border-black lg:p-2 p-2 ...">
+                        <ul className="list-disc ms-5">
+                          {p.partai?.map((p: any, i: any) => {
+                              return <li>{p.name}</li>
+                          })}
+                        </ul>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

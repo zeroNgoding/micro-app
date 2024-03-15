@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { API } from "../config/api";
 
 export default function ModalLogin(props: any) {
   const navigate = useNavigate();
@@ -10,32 +11,52 @@ export default function ModalLogin(props: any) {
       ...props.userSignIn,
       [e.target.name]: e.target.value,
       isLogin: true,
-      listas: dataUser.listas,
+      listas: dataUser?.listas,
     });
   };
 
-  const handleOnSubmit = (e: any) => {
-    e.preventDefault();
+  // const handleOnSubmit = (e: any) => {
+  //   e.preventDefault();
 
-    if (
-      dataUser.username === props.userSignIn.username &&
-      dataUser.password === props.userSignIn.password
-    ) {
+  //   if (
+  //     dataUser.username === props.userSignIn.username &&
+  //     dataUser.password === props.userSignIn.password
+  //   ) {
+  //     e.preventDefault();
+  //     props.setUserSignIn({
+  //       ...props.userSignIn,
+  //     });
+
+  //     if (props.userSignIn.listas === "admin" || dataUser.listas === "admin") {
+  //       navigate("/admin");
+  //     }
+  //     localStorage.setItem("UserSignIn", JSON.stringify(props.userSignIn));
+  //     console.log(props.userSignIn.listas);
+  //     // console.log();
+  //     alert("login succses!");
+  //     props.setModalLogin(false);
+  //   } else {
+  //     alert("username or password wrong!");
+  //   }
+  // };
+
+  const handleOnSubmit = async (e: any) => {
+    try {
       e.preventDefault();
-      props.setUserSignIn({
-        ...props.userSignIn,
-      });
 
-      if (props.userSignIn.listas === "admin" || dataUser.listas === "admin") {
+      const response = await API.post("/login", props.userSignIn);
+      console.log(response.data.user.listas);
+
+      if (response.data.user.listas === "admin") {
         navigate("/admin");
       }
-      localStorage.setItem("UserSignIn", JSON.stringify(props.userSignIn));
-      console.log(props.userSignIn.listas);
-      // console.log();
+
+      localStorage.setItem("UserSignIn", JSON.stringify(response.data.user));
       alert("login succses!");
       props.setModalLogin(false);
-    } else {
-      alert("username or password wrong!");
+    } catch (error) {
+      alert("Email or password wrong!");
+      console.log(error);
     }
   };
 

@@ -1,8 +1,27 @@
+import { useEffect, useState } from "react";
 import Onyet from "../assets/img/onyet.png";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { API } from "../config/api";
 
 export default function ListPartai(props: any) {
+  const [partais, setPartais] = useState<any>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await API.get("/partais");
+        setPartais(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(partais);
+
   return (
     <>
       <Navbar
@@ -30,7 +49,32 @@ export default function ListPartai(props: any) {
                 </tr>
               </thead>
               <tbody className="bg-white">
-                <tr>
+                {partais?.map((p: any, i: any) => {
+                  // let logo = URL.createObjectURL(p.logo);
+
+                  return (
+                    <tr key={i}>
+                      <td className="border border-black lg:p-2 text-center font-bold  ...">
+                        {i + 1}
+                      </td>
+                      <td className="border border-black lg:p-2 ...">
+                        <img src={Onyet} className="w-20 mx-auto" alt="" />
+                      </td>
+                      <td className="border border-black lg:p-2 ... align-text-top">
+                        {p.name}
+                      </td>
+                      <td className="border border-black lg:p-2 align-text-top ...">
+                        <ul className="list-disc ms-5">
+                          <li>{p.vm}</li>
+                        </ul>
+                      </td>
+                      <td className="border border-black lg:p-2 p-2 ... align-text-top">
+                        {p.address}
+                      </td>
+                    </tr>
+                  );
+                })}
+                {/* <tr>
                   <td className="border border-black lg:p-2 text-center font-bold  ...">
                     1
                   </td>
@@ -50,7 +94,7 @@ export default function ListPartai(props: any) {
                   <td className="border border-black lg:p-2 p-2 ... align-text-top">
                     Kerajaan Black Clover
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
           </div>

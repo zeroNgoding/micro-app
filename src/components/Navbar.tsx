@@ -68,7 +68,7 @@ export default function Navbar(props: any) {
                 </Link>
               </li>
               <li className="cursor-pointer">
-                {userLogin?.isLogin ? (
+                {userLogin ? (
                   <>
                     {dropdownLogout && (
                       <div
@@ -102,7 +102,7 @@ export default function Navbar(props: any) {
               </li>
             </ul>
             <div className="flex items-center absolute right-4 lg:hidden cursor-pointer">
-              {userLogin?.isLogin ? (
+              {userLogin ? (
                 <p
                   onClick={() => setHamburgerLin(!HamburgerLin)}
                   className="bg-white text-black rounded-full px-2 py-1"

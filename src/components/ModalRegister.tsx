@@ -1,21 +1,32 @@
 import { useState } from "react";
+import { API } from "../config/api";
 
 export default function ModalRegister(props: any) {
   const [userSignUp, setUserSignUp] = useState({
     fullname: "",
-    alamat: "",
-    jeniskelamin: "",
+    address: "",
+    gender: "",
     username: "",
     password: "",
     listas: "",
   });
 
-  const handleOnSubmit = (e: any) => {
-    e.preventDefault();
-    localStorage.setItem("UserSignUp", JSON.stringify(userSignUp));
-    alert("register success!");
-    props.setModalRegister(false);
-    props.setModalLogin(true);
+  // const handleOnSubmit = (e: any) => {
+  //   e.preventDefault();
+  //   localStorage.setItem("UserSignUp", JSON.stringify(userSignUp));
+  //   alert("register success!");
+  //   props.setModalRegister(false);
+  //   props.setModalLogin(true);
+  // };
+
+  const handleOnSubmit = async (e: any) => {
+    try {
+      e.preventDefault();
+      await API.post("/register", userSignUp);
+      alert("Register succses!");
+      props.setModalRegister(false);
+      props.setModalLogin(true);
+    } catch (error) {}
   };
 
   const handleOnChange = (e: any) => {
@@ -58,27 +69,27 @@ export default function ModalRegister(props: any) {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="" htmlFor="alamat">
+              <label className="" htmlFor="address">
                 Alamat
               </label>
               <input
                 onChange={handleOnChange}
                 type="text"
                 className="border p-1 border-black rounded"
-                id="alamat"
-                name="alamat"
+                id="address"
+                name="address"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="" htmlFor="jeniskelamin">
+              <label className="" htmlFor="gender">
                 Jenis Kelamain
               </label>
               <input
                 onChange={handleOnChange}
                 type="text"
                 className="border p-1 border-black rounded"
-                id="jeniskelamin"
-                name="jeniskelamin"
+                id="gender"
+                name="gender"
               />
             </div>
             <div className="flex flex-col gap-1">
