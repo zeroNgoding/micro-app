@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Onyet from "../assets/img/onyet.png";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";

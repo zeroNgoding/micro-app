@@ -69,7 +69,7 @@ export default function ListPaslon(props: any) {
                       <td className="border border-black lg:p-2 p-2 ...">
                         <ul className="list-disc ms-5">
                           {p.partai?.map((p: any, i: any) => {
-                              return <li>{p.name}</li>
+                            return <li>{p.name}</li>;
                           })}
                         </ul>
                       </td>
