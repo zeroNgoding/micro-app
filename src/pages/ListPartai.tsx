@@ -3,8 +3,12 @@ import Onyet from "../assets/img/onyet.png";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { API } from "../config/api";
+import { useNavigate } from "react-router-dom";
 
 export default function ListPartai(props: any) {
+  const dataString: any = localStorage.getItem("UserSignIn");
+  const userLogin = JSON.parse(dataString);
+  const navigate = useNavigate();
   const [partais, setPartais] = useState<any>();
 
   useEffect(() => {
@@ -31,7 +35,7 @@ export default function ListPartai(props: any) {
       <section className=" bg-white h-screen">
         <div className="container mx-auto px-4 lg:text-start text-xs lg:text-base py-52">
           <h1 className="text-center text-5xl font-bold mb-14">LIST PARTAI</h1>
-          <div className="">
+          <div className="w-1/2 mx-auto">
             <table className="mx-auto	">
               <thead className=" bg-slate-200">
                 <tr>
@@ -74,29 +78,16 @@ export default function ListPartai(props: any) {
                     </tr>
                   );
                 })}
-                {/* <tr>
-                  <td className="border border-black lg:p-2 text-center font-bold  ...">
-                    1
-                  </td>
-                  <td className="border border-black lg:p-2 ...">
-                    <img src={Onyet} className="w-20 mx-auto" alt="" />
-                  </td>
-                  <td className="border border-black lg:p-2 ... align-text-top">
-                    Cintara surya Paloh
-                  </td>
-                  <td className="border border-black lg:p-2 align-text-top ...">
-                    <ul className="list-disc ms-5">
-                      <li>Memindahkan Indonesia ke Isekai</li>
-                      <li>Nonton anime 3x sehari.</li>
-                      <li>Melakukan peresapan pada budaya jepang</li>
-                    </ul>
-                  </td>
-                  <td className="border border-black lg:p-2 p-2 ... align-text-top">
-                    Kerajaan Black Clover
-                  </td>
-                </tr> */}
               </tbody>
             </table>
+            {userLogin?.listas === "admin" && (
+              <button
+                onClick={() => navigate("/add-partai")}
+                className="ms-10 mt-10 bg-black text-white px-2 py-1 rounded-lg"
+              >
+                Add Partai
+              </button>
+            )}
           </div>
         </div>
       </section>

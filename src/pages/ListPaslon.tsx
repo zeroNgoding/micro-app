@@ -3,9 +3,13 @@ import Onyet from "../assets/img/onyet.png";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { API } from "../config/api";
+import { useNavigate } from "react-router-dom";
 
 export default function ListPaslon(props: any) {
+  const dataString: any = localStorage.getItem("UserSignIn");
+  const userLogin = JSON.parse(dataString);
   const [paslon, setPaslon] = useState<any>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +35,7 @@ export default function ListPaslon(props: any) {
       <section className=" bg-white h-screen">
         <div className="container mx-auto px-4 lg:text-start text-xs lg:text-base py-52">
           <h1 className="text-center text-5xl font-bold mb-14">LIST PASLON</h1>
-          <div className="">
+          <div className="w-1/2 mx-auto">
             <table className="mx-auto	">
               <thead className=" bg-slate-200">
                 <tr>
@@ -78,6 +82,14 @@ export default function ListPaslon(props: any) {
                 })}
               </tbody>
             </table>
+            {userLogin?.listas === "admin" && (
+              <button
+                onClick={() => navigate("/add-paslon")}
+                className="ms-10 mt-10 bg-black text-white px-2 py-1 rounded-lg"
+              >
+                Add Paslon
+              </button>
+            )}
           </div>
         </div>
       </section>
